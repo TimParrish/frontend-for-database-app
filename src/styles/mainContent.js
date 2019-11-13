@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const MainContent = styled.div`
-  height: 70vh;
   width: 100vw;
   backround-color: lightgreen;
 `;
@@ -25,6 +24,9 @@ export const RightImageDiv = styled.div`
 `;
 
 export const BodyDiv = styled.div`
+  p {
+    text-align: center;
+  }
   background-color: lightblue;
   float: left;
   width: 60vw;
