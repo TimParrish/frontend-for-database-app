@@ -7,5 +7,4 @@ export const Footer = styled.div`
   h4 {
     text-align: center;
   }
-  width: 100vw;
 `;

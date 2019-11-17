@@ -5,8 +5,6 @@ import {
   Footer,
   FlexBoxContainer,
   FlexImage,
-  LeftImageDiv,
-  RightImageDiv,
   BodyDiv,
   MarqueeImage,
   FullPageStyle
