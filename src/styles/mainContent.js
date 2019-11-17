@@ -19,7 +19,7 @@ export const RightImageDiv = styled.div`
     height: 20vw;
     width: 20vw;
   }
-  background-color: lightblue;
+  background-color: pink;
   float: right;
 `;
 
@@ -34,6 +34,5 @@ export const BodyDiv = styled.div`
 `;
 
 export const MarqueeImage = styled.img`
-  height: 200px;
   width: 100vw;
 `;
