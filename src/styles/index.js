@@ -1,10 +1,5 @@
 export { Footer } from "./footer";
 export { Header } from "./header";
 export { FullPageStyle } from "./fullPageStyle";
-export {
-  MainContent,
-  LeftImageDiv,
-  RightImageDiv,
-  BodyDiv,
-  MarqueeImage
-} from "./mainContent";
+export { FlexImage, FlexBoxContainer } from "./flexbox";
+export { BodyDiv, MarqueeImage } from "./mainContent";
