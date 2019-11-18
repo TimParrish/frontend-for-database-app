@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Footer = styled.div`
+export const FooterStyle = styled.div`
   p {
     text-align: center;
   }
