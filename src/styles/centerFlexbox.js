@@ -1,23 +1,23 @@
 import styled from "styled-components";
+import { deviceSize } from "utilities";
 
 export const FlexBoxContainer = styled.div`
   display: flex;
   flex-direction: row;
-  ${"" /* flex-wrap: wrap; */}
   justify-content: center;
   align-items: center;
-  @media (max-width: 650px) {
+  @media ${deviceSize.mobile} {
     flex-direction: column;
   }
 `;
 
 export const FlexImage = styled.img`
-  @media (max-width: 650px) {
+  @media ${deviceSize.mobile} {
     display: none;
   }
   height: 200px;
   width: 200px;
-  @media (max-width: 800px) {
+  @media ${deviceSize.tablet} {
     height: 150px;
     width: 150px;
   }
