@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { deviceSize } from "utilities";
 
 export const BodyDiv = styled.div`
   p {
@@ -10,11 +9,5 @@ export const BodyDiv = styled.div`
 `;
 
 export const MarqueeImage = styled.img`
-  max-width: 1250px;
-  @media ${deviceSize.tablet} {
-    width: 800px;
-  }
-  @media ${deviceSize.mobile} {
-    width: 650px;
-  }
+  max-width: 100%;
 `;
