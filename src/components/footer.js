@@ -9,17 +9,17 @@ export function Footer() {
         <p>
           Server Room image courtesy of{" "}
           <a href="https://unsplash.com/@tvick?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
-            Taylor Vick on unsplash.com
+            Taylor Vick
           </a>
           <br></br>
           Handcuff image courtesy of{" "}
           <a href="https://unsplash.com/@bill_oxford?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
-            Bill Oxford on unsplash.com
+            Bill Oxford
           </a>
           <br></br>
           Crime Scene image courtesy of{" "}
           <a href="https://unsplash.com/@davidvondiemar?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
-            David von Diemar on unsplash.com
+            David von Diemar
           </a>
         </p>
       </FooterStyle>

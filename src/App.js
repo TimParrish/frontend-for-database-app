@@ -10,6 +10,8 @@ import {
 } from "./styles";
 import { Footer } from "components";
 
+document.title = "FBI Crime Data";
+
 function App() {
   return (
     <>
