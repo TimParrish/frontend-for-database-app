@@ -4,11 +4,10 @@ import {
   Header,
   FlexBoxContainer,
   FlexImage,
-  BodyDiv,
   MarqueeImage,
   FullPageStyle
 } from "./styles";
-import { Footer } from "components";
+import { Footer, Sql } from "components";
 
 document.title = "FBI Crime Data";
 
@@ -22,13 +21,7 @@ function App() {
         </Header>
         <FlexBoxContainer>
           <FlexImage src={Handcuffs} alt="Handcuffs and handcuff key" />
-          <BodyDiv>
-            <p>
-              Dropdown menus that will create the mySql statement will go here
-              and use Axios to make a HTTP request to the mySql server that is
-              hosted on DigitialOcean.com
-            </p>
-          </BodyDiv>
+          <Sql />
           <FlexImage src={CrimeScene} alt="Crime scene with crime scene tape" />
         </FlexBoxContainer>
         <Footer />
