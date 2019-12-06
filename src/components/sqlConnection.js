@@ -8,12 +8,15 @@ import {
   Dropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Table
 } from "reactstrap";
 import styled from "styled-components";
 import { StatesList, CrimeNamesList } from "utilities";
 
-var myName = "API return will go here...";
+var apiResponse = [];
+var dataQuery1 = "";
+var dataQuery2 = "";
 
 const SelectionBox = styled.div`
   h2 {
@@ -23,10 +26,24 @@ const SelectionBox = styled.div`
   width: 50%;
 `;
 
+const TableDataWrapper = styled.div`
+  display: flex;
+`;
+
+const TableDataDiv = styled.div`
+  width: 50%;
+`;
+
 const SelectionBoxWrapper = styled.div`
   background-color: white;
   display: flex;
 `;
+
+const DropdownBoxWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
 export function Sql() {
   const [dropdownAOpen1, setAOpen1] = useState(false);
   const [dropdownAOpen2, setAOpen2] = useState(false);
@@ -54,21 +71,24 @@ export function Sql() {
   const [, updateRender] = useState();
 
   async function accessData() {
-    myName = "updated";
-    console.log("from inside access data before GET req, myName = " + myName);
-    await axios.get(`http://138.68.17.167:443/test`).then(result => {
-      myName = result.data[0].name;
-      console.log(myName);
-      //TODO: implement logic for multiple rows returned
-      // result.data.forEach(row => {
-      //   responseRow = {
-      //     name: `${row.name}`,
-      //     height: `${row.height}`,
-      //     age: `${row.age}`
-      //   };
-      //   serverJSONResponse.push(responseRow);
-      // });
-    });
+    await axios
+      .get(
+        `http://153.90.127.185:8080/violent/Murder_manslaughter/Montana/2016`
+      )
+      .then(result => {
+        //apiResponse = JSON.parse(result.data);
+        apiResponse = result.data;
+        console.log(apiResponse);
+        //TODO: implement logic for multiple rows returned
+        // result.data.forEach(row => {
+        //   responseRow = {
+        //     name: `${row.name}`,
+        //     height: `${row.height}`,
+        //     age: `${row.age}`
+        //   };
+        //   serverJSONResponse.push(responseRow);
+        // });
+      });
 
     //TODO: remove next line after initial testing complete
     updateRender(n => !n);
@@ -79,142 +99,219 @@ export function Sql() {
     accessData();
   }, []);
 
+  // //re-render when API responds
+  // useEffect(() => {}, [apiResponse]);
+
   return (
     <>
       <BodyDiv>
         <SelectionBoxWrapper>
           <SelectionBox>
             <h2>Data Set 1</h2>
-            <ButtonDropdown isOpen={dropdownAOpen1} toggle={toggleA1}>
-              <DropdownToggle caret>Select State</DropdownToggle>
-              <DropdownMenu>
-                {StatesList.map((state, index) => {
-                  return (
-                    <DropdownItem
-                      onClick={() => {
-                        state1 = `${state}`;
-                        console.log("state1 is: " + state1);
-                      }}
-                    >
-                      {state}
-                    </DropdownItem>
-                  );
-                })}
-              </DropdownMenu>
-            </ButtonDropdown>
-            <ButtonDropdown isOpen={dropdownAOpen2} toggle={toggleA2}>
-              <DropdownToggle caret>Select Crime</DropdownToggle>
-              <DropdownMenu>
-                {CrimeNamesList.map((crime, index) => {
-                  return (
-                    <DropdownItem
-                      onClick={() => {
-                        crime1 = `${crime.data_name}`;
-                        crime1Table = `${crime.table}`;
-                        console.log(
-                          "crime1 is: " +
-                            crime1 +
-                            " from the " +
-                            crime1Table +
-                            " table."
-                        );
-                      }}
-                    >
-                      {crime.name}
-                    </DropdownItem>
-                  );
-                })}
-              </DropdownMenu>
-            </ButtonDropdown>
-            <ButtonDropdown isOpen={dropdownAOpen3} toggle={toggleA3}>
-              <DropdownToggle caret>Data Year</DropdownToggle>
-              <DropdownMenu>
-                <DropdownItem
-                  onClick={() => {
-                    year1 = 2016;
-                    console.log("year1 is: " + year1);
-                  }}
-                >
-                  2016
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    year1 = 2015;
-                    console.log("year1 is: " + year1);
-                  }}
-                >
-                  2015
-                </DropdownItem>
-              </DropdownMenu>
-            </ButtonDropdown>
+            <DropdownBoxWrapper>
+              <ButtonDropdown isOpen={dropdownAOpen1} toggle={toggleA1}>
+                <DropdownToggle caret>Select State</DropdownToggle>
+                <DropdownMenu>
+                  {StatesList.map((state, index) => {
+                    return (
+                      <DropdownItem
+                        onClick={() => {
+                          state1 = `${state}`;
+                          console.log("state1 is: " + state1);
+                        }}
+                        key={`state1${state}${index}`}
+                      >
+                        {state}
+                      </DropdownItem>
+                    );
+                  })}
+                </DropdownMenu>
+              </ButtonDropdown>
+              <ButtonDropdown isOpen={dropdownAOpen2} toggle={toggleA2}>
+                <DropdownToggle caret>Select Crime</DropdownToggle>
+                <DropdownMenu>
+                  {CrimeNamesList.map((crime, index) => {
+                    return (
+                      <DropdownItem
+                        onClick={() => {
+                          crime1 = `${crime.data_name}`;
+                          crime1Table = `${crime.table}`;
+                          console.log(
+                            "crime1 is: " +
+                              crime1 +
+                              " from the " +
+                              crime1Table +
+                              " table."
+                          );
+                        }}
+                        key={`crime1${crime.data_name}${index}`}
+                      >
+                        {crime.name}
+                      </DropdownItem>
+                    );
+                  })}
+                </DropdownMenu>
+              </ButtonDropdown>
+              <ButtonDropdown isOpen={dropdownAOpen3} toggle={toggleA3}>
+                <DropdownToggle caret>Data Year</DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem
+                    onClick={() => {
+                      year1 = 2016;
+                      console.log("year1 is: " + year1);
+                    }}
+                  >
+                    2016
+                  </DropdownItem>
+                  <DropdownItem
+                    onClick={() => {
+                      year1 = 2015;
+                      console.log("year1 is: " + year1);
+                    }}
+                  >
+                    2015
+                  </DropdownItem>
+                </DropdownMenu>
+              </ButtonDropdown>
+            </DropdownBoxWrapper>
           </SelectionBox>
           <SelectionBox>
             <h2>Data Set 2</h2>
-            <ButtonDropdown isOpen={dropdownBOpen1} toggle={toggleB1}>
-              <DropdownToggle caret>Select State</DropdownToggle>
-              <DropdownMenu>
-                {StatesList.map((state, index) => {
-                  return (
-                    <DropdownItem
-                      onClick={() => {
-                        state2 = `${state}`;
-                        console.log("state2 is: " + state2);
-                      }}
-                    >
-                      {state}
-                    </DropdownItem>
-                  );
-                })}
-              </DropdownMenu>
-            </ButtonDropdown>
-            <ButtonDropdown isOpen={dropdownBOpen2} toggle={toggleB2}>
-              <DropdownToggle caret>Select Crime</DropdownToggle>
-              <DropdownMenu>
-                {CrimeNamesList.map((crime, index) => {
-                  return (
-                    <DropdownItem
-                      onClick={() => {
-                        crime2 = `${crime.data_name}`;
-                        crime2Table = `${crime.table}`;
-                        console.log(
-                          "crime2 is: " +
-                            crime2 +
-                            " from the " +
-                            crime2Table +
-                            " table."
-                        );
-                      }}
-                    >
-                      {crime.name}
-                    </DropdownItem>
-                  );
-                })}
-              </DropdownMenu>
-            </ButtonDropdown>
-            <ButtonDropdown isOpen={dropdownBOpen3} toggle={toggleB3}>
-              <DropdownToggle caret>Data Year</DropdownToggle>
-              <DropdownMenu>
-                <DropdownItem
-                  onClick={() => {
-                    year2 = 2016;
-                    console.log("year2 is: " + year2);
-                  }}
-                >
-                  2016
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    year2 = 2015;
-                    console.log("year2 is: " + year2);
-                  }}
-                >
-                  2015
-                </DropdownItem>
-              </DropdownMenu>
-            </ButtonDropdown>
+            <DropdownBoxWrapper>
+              <ButtonDropdown isOpen={dropdownBOpen1} toggle={toggleB1}>
+                <DropdownToggle caret>Select State</DropdownToggle>
+                <DropdownMenu>
+                  {StatesList.map((state, index) => {
+                    return (
+                      <DropdownItem
+                        onClick={() => {
+                          state2 = `${state}`;
+                          console.log("state2 is: " + state2);
+                        }}
+                        key={`state2${state}${index}`}
+                      >
+                        {state}
+                      </DropdownItem>
+                    );
+                  })}
+                </DropdownMenu>
+              </ButtonDropdown>
+              <ButtonDropdown isOpen={dropdownBOpen2} toggle={toggleB2}>
+                <DropdownToggle caret>Select Crime</DropdownToggle>
+                <DropdownMenu>
+                  {CrimeNamesList.map((crime, index) => {
+                    return (
+                      <DropdownItem
+                        onClick={() => {
+                          crime2 = `${crime.data_name}`;
+                          crime2Table = `${crime.table}`;
+                          console.log(
+                            "crime2 is: " +
+                              crime2 +
+                              " from the " +
+                              crime2Table +
+                              " table."
+                          );
+                        }}
+                        key={`crime1${crime.data_name}${index}`}
+                      >
+                        {crime.name}
+                      </DropdownItem>
+                    );
+                  })}
+                </DropdownMenu>
+              </ButtonDropdown>
+              <ButtonDropdown isOpen={dropdownBOpen3} toggle={toggleB3}>
+                <DropdownToggle caret>Data Year</DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem
+                    onClick={() => {
+                      year2 = 2016;
+                      console.log("year2 is: " + year2);
+                    }}
+                  >
+                    2016
+                  </DropdownItem>
+                  <DropdownItem
+                    onClick={() => {
+                      year2 = 2015;
+                      console.log("year2 is: " + year2);
+                    }}
+                  >
+                    2015
+                  </DropdownItem>
+                </DropdownMenu>
+              </ButtonDropdown>
+            </DropdownBoxWrapper>
           </SelectionBox>
         </SelectionBoxWrapper>
-        <p>{myName}</p>
+        {/* <p>{apiResponse}</p> */}
+        <TableDataWrapper>
+          <TableDataDiv>
+            <Table responsive hover dark>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Table heading</th>
+                  <th>Table heading</th>
+                  <th>Table heading</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Table cell</td>
+                  <td>Table cell</td>
+                  <td>Table cell</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Table cell</td>
+                  <td>Table cell</td>
+                  <td>Table cell</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Table cell</td>
+                  <td>Table cell</td>
+                  <td>Table cell</td>
+                </tr>
+              </tbody>
+            </Table>
+          </TableDataDiv>
+          <TableDataDiv>
+            <Table responsive hover dark>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Table heading</th>
+                  <th>Table heading</th>
+                  <th>Table heading</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Table cell</td>
+                  <td>Table cell</td>
+                  <td>Table cell</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Table cell</td>
+                  <td>Table cell</td>
+                  <td>Table cell</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Table cell</td>
+                  <td>Table cell</td>
+                  <td>Table cell</td>
+                </tr>
+              </tbody>
+            </Table>
+          </TableDataDiv>
+        </TableDataWrapper>
       </BodyDiv>
     </>
   );
