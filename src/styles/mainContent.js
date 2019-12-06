@@ -4,7 +4,6 @@ export const BodyDiv = styled.div`
   p {
     text-align: center;
   }
-  background-color: lightblue;
   flex: 4;
 `;
 

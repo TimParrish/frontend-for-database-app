@@ -4,6 +4,7 @@ import { BodyDiv } from "styles";
 import "bootstrap/dist/css/bootstrap.min.css";
 import PropTypes from "prop-types";
 import {
+  Button,
   ButtonDropdown,
   Dropdown,
   DropdownToggle,
@@ -17,6 +18,22 @@ import { StatesList, CrimeNamesList } from "utilities";
 var apiResponse = [];
 var dataQuery1 = "";
 var dataQuery2 = "";
+var state1 = "";
+var state2 = "";
+var year1;
+var year2;
+var crime1 = "";
+var crime2 = "";
+var crime1Table = "";
+var crime2Table = "";
+
+const SubmitButton = styled(Button)`
+  margin: 15px;
+`;
+const SelectButtonDiv = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 const SelectionBox = styled.div`
   h2 {
@@ -35,7 +52,6 @@ const TableDataDiv = styled.div`
 `;
 
 const SelectionBoxWrapper = styled.div`
-  background-color: white;
   display: flex;
 `;
 
@@ -57,15 +73,6 @@ export function Sql() {
   const toggleB1 = () => setBOpen1(!dropdownBOpen1);
   const toggleB2 = () => setBOpen2(!dropdownBOpen2);
   const toggleB3 = () => setBOpen3(!dropdownBOpen3);
-
-  var state1 = "";
-  var state2 = "";
-  var year1;
-  var year2;
-  var crime1 = "";
-  var crime2 = "";
-  var crime1Table = "";
-  var crime2Table = "";
 
   //TODO: remove next line after initial testing complete
   const [, updateRender] = useState();
@@ -94,6 +101,14 @@ export function Sql() {
     updateRender(n => !n);
   }
 
+  function submitData() {
+    // state/Montana/Murder_manslaughter/2016
+    dataQuery1 = `state/${state1}/${crime1}/${year1}`;
+    dataQuery2 = `state/${state2}/${crime2}/${year2}`;
+
+    console.log("dataQuery1 is: " + dataQuery1);
+    console.log("dataQuery2 is: " + dataQuery2);
+  }
   //call the server for an initial test
   useEffect(() => {
     accessData();
@@ -245,7 +260,11 @@ export function Sql() {
             </DropdownBoxWrapper>
           </SelectionBox>
         </SelectionBoxWrapper>
-        {/* <p>{apiResponse}</p> */}
+        <SelectButtonDiv>
+          <SubmitButton outline color="success" block onClick={submitData}>
+            Submit
+          </SubmitButton>
+        </SelectButtonDiv>
         <TableDataWrapper>
           <TableDataDiv>
             <Table responsive hover dark>
